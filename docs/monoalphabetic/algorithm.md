@@ -1,74 +1,86 @@
-# Monoalphabetic Substitution Cipher and Cryptanalysis
+# Vigenère Cipher Cryptanalysis Algorithm
 
-## 1. Monoalphabetic Encryption Algorithm
+## Aim
 
-1. Read the plaintext.
-2. Define a 26-letter substitution key.
-3. Read each character of the plaintext.
-4. If the character is alphabetic, substitute it using the key.
-5. Preserve spaces, numbers and punctuation.
-6. Generate the ciphertext.
-7. Store the generated ciphertext.
+To cryptanalyse a Vigenère cipher using Kasiski examination, Index of Coincidence and frequency analysis, recover the probable key and plaintext, and verify the recovered solution by re-encryption.
 
-## 2. Frequency Analysis Algorithm
+## Algorithm
 
-1. Read the ciphertext.
-2. Count the occurrence of every alphabetic character.
-3. Calculate the total number of alphabetic characters.
-4. Calculate the percentage frequency of each character.
-5. Sort the ciphertext letters according to frequency.
-6. Display the letters in descending frequency order.
-7. Identify the most frequent ciphertext letters.
+### 1. Preprocessing
 
-## 3. Word Frequency Analysis Algorithm
+1. Read the given ciphertext from the input file.
+2. Remove spaces and special characters.
+3. Convert all alphabetic characters to uppercase.
+4. Store the cleaned ciphertext.
 
-1. Read the ciphertext.
-2. Extract individual words.
-3. Count one-letter words.
-4. Count two-letter words.
-5. Count three-letter words.
-6. Count repeated words.
-7. Display the word frequencies.
+### 2. Find Repeated Patterns
 
-## 4. Pattern Analysis Algorithm
+1. Search the ciphertext for repeated sequences of length 3 to 5.
+2. Record the starting position of each repeated sequence.
+3. Identify repeated sequences occurring at different positions.
 
-1. Extract words from the ciphertext.
-2. Assign a pattern number to each new character in a word.
-3. Generate the repeated-letter pattern of each word.
-4. Display each word with its pattern.
-5. Compare words having similar patterns.
-6. Use repeated patterns to propose possible plaintext words.
+### 3. Calculate Distances
 
-## 5. Iterative Cryptanalysis Algorithm
+1. For every repeated pattern, calculate the distance between its occurrences.
+2. Store the obtained distances.
+3. These distances are used to identify possible key lengths.
 
-1. Perform letter-frequency analysis.
-2. Identify frequently occurring ciphertext letters.
-3. Generate possible plaintext substitutions.
-4. Examine one-letter, two-letter and three-letter words.
-5. Examine repeated words.
-6. Examine repeated letter patterns.
-7. Select a candidate substitution.
-8. Apply the substitution to the ciphertext.
-9. Display the resulting partial plaintext.
-10. Examine the partial plaintext.
-11. Accept the substitution if it produces a consistent meaningful result.
-12. Reject the substitution if it produces an inconsistent result.
-13. Test another candidate substitution.
-14. Repeat the process until meaningful plaintext is recovered.
+### 4. Find Factors
 
-## 6. Key Recovery Algorithm
+1. Find the factors of every repeated-pattern distance.
+2. Compare the factors obtained from different distances.
+3. Factors occurring frequently are considered possible key lengths.
 
-1. Record all accepted ciphertext-to-plaintext substitutions.
-2. Construct the complete substitution mapping.
-3. Check that a plaintext letter is not assigned to multiple ciphertext letters.
-4. Store the recovered substitution key.
+### 5. Kasiski Analysis
 
-## 7. Verification Algorithm
+1. Examine the repeated patterns and their distances.
+2. Identify common factors among the distances.
+3. Generate candidate key lengths.
+4. In this experiment, key length **14** was selected because 14 occurs as a factor of several important repeated-pattern distances.
+
+### 6. Index of Coincidence
+
+1. Calculate the Index of Coincidence of the ciphertext.
+2. Calculate IC values for groups corresponding to candidate key lengths.
+3. Use IC as supporting evidence for selecting the key length.
+4. For this experiment, the selected key length was **14**.
+
+### 7. Split the Ciphertext
+
+1. Divide the ciphertext into 14 groups.
+2. Characters having the same position modulo 14 are placed in the same group.
+3. Each group corresponds to one character of the Vigenère key.
+
+### 8. Frequency Analysis
+
+1. Calculate the frequency of A-Z in each group.
+2. Treat each group approximately as a Caesar cipher.
+3. Compare the frequency distribution with normal English letter frequencies.
+4. Determine the most probable shift for every group.
+
+### 9. Recover the Key
+
+1. Determine the probable Caesar shift for every group.
+2. Convert each shift into its corresponding alphabetic character.
+3. Combine the characters in group order.
+4. The recovered key for this experiment is:
+
+`AMBROISETHOMAS`
+
+### 10. Decryption
+
+1. Repeat the recovered key over the ciphertext.
+2. Convert ciphertext and key letters into numerical values from 0 to 25.
+3. Apply the Vigenère decryption formula:
+
+`P = (C - K + 26) mod 26`
+
+4. Convert the resulting values back to letters.
+5. Obtain the recovered plaintext.
+
+### 11. Verification
 
 1. Take the recovered plaintext.
-2. Construct the reverse encryption key from the recovered substitution key.
-3. Encrypt the recovered plaintext.
-4. Generate the new ciphertext.
-5. Compare the generated ciphertext with the original ciphertext.
-6. If both ciphertexts are identical, the recovered solution is verified.
-7. Otherwise, re-examine the substitutions.
+2. Encrypt it again using the recovered key.
+3. Compare the generated ciphertext with the original cleaned ciphertext.
+4. If both are identical, the recovered key and plaintext are verified.

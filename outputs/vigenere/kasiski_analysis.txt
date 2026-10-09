@@ -1,0 +1,97 @@
+====================================
+VIGENERE CIPHER CRYPTANALYSIS
+====================================
+
+Clean ciphertext length: 395
+
+====================================
+REPEATED PATTERNS
+====================================
+Pattern: YSZ   Positions: 17, 353
+Pattern: SZW   Positions: 18, 354
+Pattern: ZWX   Positions: 19, 355
+Pattern: WXA   Positions: 20, 356
+Pattern: ETZ   Positions: 59, 389
+Pattern: HQS   Positions: 84, 294
+Pattern: QSV   Positions: 85, 295
+Pattern: HPW   Positions: 88, 382
+Pattern: MJE   Positions: 103, 215
+Pattern: JEG   Positions: 104, 216
+Pattern: OSD   Positions: 121, 303
+Pattern: SDE   Positions: 122, 304
+Pattern: AZE   Positions: 154, 168
+Pattern: TAM   Positions: 208, 322
+Pattern: SZO   Positions: 264, 362
+Pattern: ELH   Positions: 292, 306
+Pattern: MUZ   Positions: 309, 366
+Pattern: YSZW   Positions: 17, 353
+Pattern: SZWX   Positions: 18, 354
+Pattern: ZWXA   Positions: 19, 355
+Pattern: HQSV   Positions: 84, 294
+Pattern: MJEG   Positions: 103, 215
+Pattern: OSDE   Positions: 121, 303
+Pattern: YSZWX   Positions: 17, 353
+Pattern: SZWXA   Positions: 18, 354
+
+====================================
+DISTANCES BETWEEN REPEATED PATTERNS
+====================================
+Pattern: YSZ   Distance: 336
+Pattern: SZW   Distance: 336
+Pattern: ZWX   Distance: 336
+Pattern: WXA   Distance: 336
+Pattern: ETZ   Distance: 330
+Pattern: HQS   Distance: 210
+Pattern: QSV   Distance: 210
+Pattern: HPW   Distance: 294
+Pattern: MJE   Distance: 112
+Pattern: JEG   Distance: 112
+Pattern: OSD   Distance: 182
+Pattern: SDE   Distance: 182
+Pattern: AZE   Distance: 14
+Pattern: TAM   Distance: 114
+Pattern: SZO   Distance: 98
+Pattern: ELH   Distance: 14
+Pattern: MUZ   Distance: 57
+Pattern: YSZW   Distance: 336
+Pattern: SZWX   Distance: 336
+Pattern: ZWXA   Distance: 336
+Pattern: HQSV   Distance: 210
+Pattern: MJEG   Distance: 112
+Pattern: OSDE   Distance: 182
+Pattern: YSZWX   Distance: 336
+Pattern: SZWXA   Distance: 336
+
+====================================
+KASISKI ANALYSIS
+====================================
+Factors of repeated-pattern distances:
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+Distance 330 factors: 2 3 5 6 10 11 15 22 30 33 55 66 110 165 330 
+Distance 210 factors: 2 3 5 6 7 10 14 15 21 30 35 42 70 105 210 
+Distance 210 factors: 2 3 5 6 7 10 14 15 21 30 35 42 70 105 210 
+Distance 294 factors: 2 3 6 7 14 21 42 49 98 147 294 
+Distance 112 factors: 2 4 7 8 14 16 28 56 112 
+Distance 112 factors: 2 4 7 8 14 16 28 56 112 
+Distance 182 factors: 2 7 13 14 26 91 182 
+Distance 182 factors: 2 7 13 14 26 91 182 
+Distance 14 factors: 2 7 14 
+Distance 114 factors: 2 3 6 19 38 57 114 
+Distance 98 factors: 2 7 14 49 98 
+Distance 14 factors: 2 7 14 
+Distance 57 factors: 3 19 57 
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+Distance 210 factors: 2 3 5 6 7 10 14 15 21 30 35 42 70 105 210 
+Distance 112 factors: 2 4 7 8 14 16 28 56 112 
+Distance 182 factors: 2 7 13 14 26 91 182 
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+Distance 336 factors: 2 3 4 6 7 8 12 14 16 21 24 28 42 48 56 84 112 168 336 
+
+Candidate key lengths are suggested from common factors.
+
+Index of C
