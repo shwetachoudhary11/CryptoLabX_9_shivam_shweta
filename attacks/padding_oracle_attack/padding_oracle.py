@@ -70,7 +70,7 @@ def padding_oracle_attack(iv, ciphertext, oracle):
 
 
 if __name__ == "__main__":
-    message = b"Padding oracle attack demonstration"
+    message = b"hello"
 
     key, iv, ciphertext = encrypt_message(message)
     oracle = create_padding_oracle(key)
