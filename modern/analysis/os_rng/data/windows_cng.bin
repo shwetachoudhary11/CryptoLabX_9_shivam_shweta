@@ -1,0 +1,46 @@
+
+$ErrorActionPreference = "Stop"
+
+$Size = 1048576
+
+$OutputDir = Join-Path $PSScriptRoot "data"
+
+New-Item -ItemType Directory -Force -Path $OutputDir |
+    Out-Null
+
+$OutputFile = Join-Path $OutputDir "windows_cng.bin"
+
+Write-Host "Generating random bytes using Windows CNG/.NET..."
+
+$rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+
+try {
+    $buffer = New-Object byte[] 4096
+
+    $stream = [System.IO.File]::Create($OutputFile)
+
+    try {
+        $remaining = $Size
+
+        while ($remaining -gt 0) {
+
+            $count = [Math]::Min(4096, $remaining)
+
+            $rng.GetBytes($buffer)
+
+            $stream.Write($buffer, 0, $count)
+
+            $remaining -= $count
+        }
+    }
+    finally {
+        $stream.Dispose()
+    }
+}
+finally {
+    $rng.Dispose()
+}
+
+Write-Host "Generation completed!"
+Write-Host "Output file: $OutputFile"
+Write-Host "Size: $((Get-Item $OutputFile).Length) bytes"
