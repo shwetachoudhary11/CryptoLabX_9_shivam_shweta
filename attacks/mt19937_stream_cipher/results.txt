@@ -1,0 +1,33 @@
+
+========== PART A ==========
+
+Original seed: 7526
+Plaintext: ?GiV-7AAAAAAAAAAAAAA
+Ciphertext (hex): f26cdc80b0f7d1e99b166c20a127984a3d86b40b
+
+Decrypted plaintext: ?GiV-7AAAAAAAAAAAAAA
+Encryption/Decryption verification: SUCCESS
+
+Starting seed recovery...
+
+Seeds tested: 7527
+Recovered seed: 7526
+Recovered plaintext: ?GiV-7AAAAAAAAAAAAAA
+Full plaintext verification: True
+Known 14-character sequence found: True
+Seed recovery verification: True
+
+========== PART B ==========
+
+Original timestamp: 1793903775
+Generated token: da37f1aa2f9f8031517449d684844ef6
+
+Searching for timestamp...
+Search interval: 1793903475 to 1793904075
+Total possible timestamps: 601
+
+Candidates tested: 301
+Recovered timestamp: 1793903775
+Regenerated token: da37f1aa2f9f8031517449d684844ef6
+Token verification: True
+Timestamp verification: True

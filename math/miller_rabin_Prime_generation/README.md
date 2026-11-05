@@ -76,3 +76,23 @@ A probable prime of the required bit length is generated
 using the Miller-Rabin primality test. Its bit length,
 test results, candidate count, and execution time are recorded.
 An independent primality check provides additional verification.
+
+
+## Complexity Analysis
+
+The Miller-Rabin test performs modular exponentiation
+for each selected base.
+
+For a candidate with k bits and r testing rounds,
+the approximate time complexity is O(r * k^3)
+using basic multiplication assumptions.
+
+The space complexity is O(k) for storing large integers.
+
+## Security Note
+
+Miller-Rabin is a probabilistic primality test.
+Using multiple independent random bases reduces the
+probability of incorrectly accepting a composite number.
+
+This program uses 40 rounds by default.

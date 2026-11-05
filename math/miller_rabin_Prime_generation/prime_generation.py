@@ -1,11 +1,11 @@
 
 import secrets
 import time
-import argparse
+from pathlib import Path
 
 
-def miller_rabin(n, rounds=40):
-    """Test whether n is probably prime using Miller-Rabin."""
+def miller_rabin(n, rounds):
+    """Check whether n is probably prime using Miller-Rabin."""
 
     if n < 2:
         return False, []
@@ -19,7 +19,6 @@ def miller_rabin(n, rounds=40):
         if n % p == 0:
             return False, []
 
-    # Write n - 1 as d * 2^s
     d = n - 1
     s = 0
 
@@ -30,7 +29,6 @@ def miller_rabin(n, rounds=40):
     bases_tested = []
 
     for _ in range(rounds):
-        # Select a random base between 2 and n-2
         a = 2 + secrets.randbelow(n - 3)
         bases_tested.append(a)
 
@@ -51,13 +49,11 @@ def miller_rabin(n, rounds=40):
 
 
 def generate_prime(bits, rounds):
-    """Generate a probable prime of exactly the requested bit length."""
+    """Generate a probable prime of exactly 'bits' bits."""
 
     candidates_tested = 0
 
     while True:
-        # Set the highest bit to guarantee bit length
-        # Set the lowest bit to guarantee an odd number
         candidate = (
             secrets.randbits(bits)
             | (1 << (bits - 1))
@@ -73,59 +69,56 @@ def generate_prime(bits, rounds):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Cryptographic Prime Generation using Miller-Rabin"
-    )
+    print("=== Miller-Rabin Prime Generation ===")
 
-    parser.add_argument(
-        "--bits",
-        type=int,
-        default=512,
-        help="Required prime bit length"
-    )
+    while True:
+        try:
+            bits = int(input("Enter required bit length: "))
 
-    parser.add_argument(
-        "--rounds",
-        type=int,
-        default=40,
-        help="Number of Miller-Rabin rounds"
-    )
+            if bits < 2:
+                print("Bit length must be at least 2.")
+                continue
 
-    args = parser.parse_args()
+            break
 
-    if args.bits < 2:
-        parser.error("Bit length must be at least 2")
+        except ValueError:
+            print("Please enter a valid integer.")
 
-    if args.rounds < 1:
-        parser.error("Number of rounds must be at least 1")
+    while True:
+        try:
+            rounds = int(input("Enter number of Miller-Rabin rounds: "))
 
+            if rounds < 1:
+                print("Number of rounds must be at least 1.")
+                continue
+
+            break
+
+        except ValueError:
+            print("Please enter a valid integer.")
+
+    print("\nGenerating probable prime...")
     start_time = time.perf_counter()
 
-    prime, candidate_count, bases = generate_prime(
-        args.bits, args.rounds
-    )
+    prime, candidate_count, bases = generate_prime(bits, rounds)
 
-    end_time = time.perf_counter()
-    execution_time = end_time - start_time
-
+    execution_time = time.perf_counter() - start_time
     actual_bits = prime.bit_length()
 
-    print("\n===== MILLER-RABIN PRIME GENERATION =====")
-    print("Assigned bit length:", args.bits)
+    print("\n===== EXPERIMENTAL RESULTS =====")
+    print("Assigned bit length:", bits)
     print("Generated prime candidate:", prime)
     print("Actual bit length:", actual_bits)
     print("Number of candidates tested:", candidate_count)
-    print("Number of Miller-Rabin rounds:", args.rounds)
-    print("Total execution time: {:.6f} seconds".format(
-        execution_time
-    ))
+    print("Number of Miller-Rabin rounds:", rounds)
+    print(f"Total execution time: {execution_time:.6f} seconds")
 
     print("\n===== VERIFICATION =====")
-    print("Correct bit length:", actual_bits == args.bits)
+    print("Correct bit length:", actual_bits == bits)
     print("Candidate is odd:", prime % 2 == 1)
-    print("Miller-Rabin bases tested:", len(bases))
+    print("Bases tested on final candidate:", len(bases))
 
-    if len(bases) == args.rounds:
+    if len(bases) == rounds:
         print("Miller-Rabin verification: PASS")
     else:
         print("Miller-Rabin verification: INCOMPLETE")
@@ -134,31 +127,28 @@ def main():
     for i, base in enumerate(bases, start=1):
         print(f"Round {i}: {base}")
 
-    # Independent verification using SymPy
     try:
         from sympy import isprime
 
         result = isprime(prime)
-
-        print("\nIndependent SymPy verification:",
-              "PASS" if result else "FAIL")
+        print(
+            "\nIndependent SymPy verification:",
+            "PASS" if result else "FAIL"
+        )
 
     except ImportError:
         print("\nSymPy is not installed.")
         print("Install it using: python -m pip install sympy")
 
-    # Save experimental results
-    from pathlib import Path
-
     results_path = Path(__file__).resolve().parent / "results.txt"
 
     with open(results_path, "w", encoding="utf-8") as file:
-        file.write("Cryptographic Prime Generation Using Miller-Rabin\n")
-        file.write(f"Assigned bit length: {args.bits}\n")
+        file.write("Miller-Rabin Prime Generation Results\n")
+        file.write(f"Assigned bit length: {bits}\n")
         file.write(f"Generated prime candidate: {prime}\n")
         file.write(f"Actual bit length: {actual_bits}\n")
         file.write(f"Number of candidates tested: {candidate_count}\n")
-        file.write(f"Number of Miller-Rabin rounds: {args.rounds}\n")
+        file.write(f"Number of Miller-Rabin rounds: {rounds}\n")
         file.write(f"Total execution time: {execution_time:.6f} seconds\n")
         file.write(f"Bases used: {bases}\n")
 
